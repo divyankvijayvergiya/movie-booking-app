@@ -6,7 +6,7 @@ class BookShow extends Component {
     render() {
         return (
             <div>
-                <Header />
+                <Header /
             </div>
         )
     }
