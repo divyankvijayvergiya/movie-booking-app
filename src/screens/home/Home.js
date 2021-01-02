@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import './Home.css';
 import Header from '../../common/header/Header';
 import { withStyles } from '@material-ui/core/styles';
@@ -13,9 +14,10 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
-import { Checkbox, ListItemText, MenuItem } from '@material-ui/core';
+import { Button, Checkbox, ListItemText, MenuItem, TextField } from '@material-ui/core';
 import genres from '../../common/genres';
 import artists from '../../common/artists';
+import Details from '../details/Details'
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -38,8 +40,8 @@ const styles = theme => ({
     },
     formControl: {
         margin: theme.spacing.unit,
-        minWidth: 240,
-        maxWidth: 240
+        minWidth: 280,
+        maxWidth: 280
     },
     title: {
         color: theme.palette.primary.light,
@@ -68,6 +70,11 @@ class Home extends Component {
     artistSelectHandler = (e) => {
         this.setState({ artists: e.target.value })
     }
+
+    movieClickHandler = (movieId) => {
+        ReactDOM.render(<Details movieId = {movieId} />, document.getElementById("root"))
+    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -77,7 +84,7 @@ class Home extends Component {
                     <span>Upcoming Movies</span>
                 </div>
                 <GridList cols={5} className={classes.gridListUpcomingMovies}>{moviesData.map(movie => (
-                    <GridListTile key={movie.id}>
+                    <GridListTile key={movie.id} >
                         <img src={movie.poster_url} className="movie-poster" alt={movie.title} />
                         <GridListTileBar title={movie.title} />
                     </GridListTile>
@@ -87,7 +94,7 @@ class Home extends Component {
                     <div className="left">
                         <GridList cellHeight={350} cols={4} className={classes.gridListMain}>
                             {moviesData.map(movie => (
-                                <GridListTile className="released-movie-grid-item" key={"grid" + movie.id}>
+                                <GridListTile onClick = {() => this.movieClickHandler(movie.id)} className="released-movie-grid-item" key={"grid" + movie.id}>
                                     <img src={movie.poster_url} className="movie-poster" alt={movie.title} />
                                     <GridListTileBar
                                         title={movie.title}
@@ -142,6 +149,30 @@ class Home extends Component {
                                             </MenuItem>
                                         ))}
                                     </Select>
+                                </FormControl>
+
+                                <FormControl className={classes.formControl}>
+                                    <TextField
+                                        id="releaseDateStart"
+                                        label="Release Date Start"
+                                        type="date"
+                                        defaultValue=""
+                                        InputLabelProps={{shrink: true}}/>
+                                </FormControl>
+
+                                <FormControl className={classes.formControl}>
+                                    <TextField
+                                        id="releaseDateEnd"
+                                        label="Release Date End"
+                                        type="date"
+                                        defaultValue=""
+                                        InputLabelProps={{shrink: true}}/>
+                                </FormControl><br /><br />
+
+                                <FormControl className={classes.formControl}>
+                                    <Button variant="contained" color="primary">
+                                        APPLY
+                                    </Button>
                                 </FormControl>
                             </CardContent>
                         </Card>
