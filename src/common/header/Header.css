@@ -1,6 +1,11 @@
 .login-button{
     float: right;
 }
+.bookshow-button {
+    float: right;
+    margin-right: 8px;
+}
+
 .app-header{
     background-color: black;
     color: black;

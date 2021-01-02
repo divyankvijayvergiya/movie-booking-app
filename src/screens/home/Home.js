@@ -79,7 +79,7 @@ class Home extends Component {
         const { classes } = this.props;
         return (
             <div>
-                <Header />
+                <Header showBookShowButton = "false" />
                 <div className={classes.upcomingMoviesHeading}>
                     <span>Upcoming Movies</span>
                 </div>
