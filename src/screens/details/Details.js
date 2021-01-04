@@ -14,7 +14,11 @@ class Details extends Component {
     constructor() {
         super();
         this.state = {
-            movies: {},
+            movies: {
+                genres: [],
+                trailer_url: '',
+                artists: []
+            },
             starIcons: [
                 {
                    id: 1,
@@ -46,13 +50,28 @@ class Details extends Component {
     }
 
     componentWillMount() {
-        let currentState = this.state;
-        currentState.movies = moviesData.filter((mov) => {
-            return mov.id === this.props.match.params.id
-        })[0];
+        // let currentState = this.state;
+        // currentState.movies = moviesData.filter((mov) => {
+        //     return mov.id === this.props.match.params.id
+        // })[0];
 
-        this.setState({ currentState })
-        console.log(currentState);
+        // this.setState({ currentState })
+        // console.log(currentState);
+        let that = this;
+        let dataMovieDetails = null;
+        let xhrMovie = new XMLHttpRequest();
+        xhrMovie.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                console.log(JSON.parse(this.responseText));
+                that.setState({
+                    movie: JSON.parse(this.responseText)
+                });
+            }
+        });
+
+        xhrMovie.open("GET", this.props.baseUrl + "movies/" + this.props.match.params.id);
+        xhrMovie.setRequestHeader("Cache-Control", "no-cache");
+        xhrMovie.send(dataMovieDetails);
     }
 
     // backToHomeHandler = () => {

@@ -134,6 +134,7 @@ class Home extends Component {
         xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.send(data);
 
+        //GET MOVIES
         let dataReleased = null;
         let xhrReleased = new XMLHttpRequest();
         xhrReleased.addEventListener("readystatechange", function () {
