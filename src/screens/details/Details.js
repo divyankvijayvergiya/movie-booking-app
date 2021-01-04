@@ -2,9 +2,7 @@ import { Typography } from '@material-ui/core';
 import React, { Component } from 'react';
 import Header from '../../common/header/Header';
 import moviesData from '../../common/movieData';
-import Home from '../home/Home';
 import './Details.css';
-import ReactDOM from 'react-dom';
 import YouTube from 'react-youtube';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -93,7 +91,7 @@ class Details extends Component {
         }
         return (
             <div className="details">
-                <Header id={this.props.match.params.id} showBookShowButton="true" />
+                <Header id={this.props.match.params.id} showBookShowButton="true" baseUrl = {this.props.baseUrl}/>
                 <div className="back">
                     <Typography>
                         <Link to="/">  &#60; Back to Home</Link>

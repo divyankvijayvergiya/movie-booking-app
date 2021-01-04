@@ -89,7 +89,7 @@ class Home extends Component {
 
         xhr.open("GET", this.props.baseUrl + "movies?status=PUBLISHED");
         xhr.setRequestHeader("Cache-Control", "no-cache");
-        xhr.send(data);
+        xhr.send(data); 
 
         let dataReleased = null;
         let xhrReleased = new XMLHttpRequest();
@@ -111,7 +111,7 @@ class Home extends Component {
         const { classes } = this.props;
         return (
             <div>
-                <Header showBookShowButton = "false" />
+                <Header showBookShowButton = "false" baseUrl = {this.props.baseUrl}/>
                 <div className={classes.upcomingMoviesHeading}>
                     <span>Upcoming Movies</span>
                 </div>
