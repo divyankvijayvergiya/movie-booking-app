@@ -54,6 +54,7 @@ class Home extends Component {
             movieName: "",
             genres: [],
             artists: [],
+            genresList: [{}],
             upcomingMovies: [],
             releasedMovies: []
         }
@@ -105,6 +106,22 @@ class Home extends Component {
         xhrReleased.open("GET", this.props.baseUrl + "movies?status=RELEASED");
         xhrReleased.setRequestHeader("Cache-Control", "no-cache");
         xhrReleased.send(dataReleased);
+
+        //GET GENRES
+        let dataGenres = null;
+        let xhrGenres = new XMLHttpRequest();
+        xhrGenres.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                console.log(JSON.parse(this.responseText));
+                that.setState({
+                    genresList: JSON.parse(this.responseText).genres
+                });
+            }
+        });
+
+        xhrGenres.open("GET", this.props.baseUrl + "genres");
+        xhrGenres.setRequestHeader("Cache-Control", "no-cache");
+        xhrGenres.send(dataGenres);
     }
 
     render() {
@@ -156,10 +173,10 @@ class Home extends Component {
                                         onChange={this.genreSelectHandler}>
 
                                         {/* <MenuItem value="0">None</MenuItem> */}
-                                        {genres.map(genre => (
-                                            <MenuItem key={genre.id} value={genre.name}>
+                                        {this.state.genresList.map(genre => (
+                                            <MenuItem key={genre.id} value={genre.genre}>
                                                 <Checkbox checked={this.state.genres.indexOf(genre.name) > -1} />
-                                                <ListItemText primary={genre.name} />
+                                                <ListItemText primary={genre.genre} />
                                             </MenuItem>
                                         ))}
                                     </Select>
