@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import './Home.css';
 import Header from '../../common/header/Header';
 import { withStyles } from '@material-ui/core/styles';
@@ -17,7 +16,6 @@ import Select from '@material-ui/core/Select';
 import { Button, Checkbox, ListItemText, MenuItem, TextField } from '@material-ui/core';
 import genres from '../../common/genres';
 import artists from '../../common/artists';
-import Details from '../details/Details'
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -72,7 +70,8 @@ class Home extends Component {
     }
 
     movieClickHandler = (movieId) => {
-        ReactDOM.render(<Details movieId = {movieId} />, document.getElementById("root"))
+        // ReactDOM.render(<Details movieId = {movieId} />, document.getElementById("root"))
+        this.props.history.push('/movie/'+ movieId);
     }
 
     render() {
@@ -123,7 +122,7 @@ class Home extends Component {
                                         value={this.state.genres}
                                         onChange={this.genreSelectHandler}>
 
-                                        <MenuItem value="0">None</MenuItem>
+                                        {/* <MenuItem value="0">None</MenuItem> */}
                                         {genres.map(genre => (
                                             <MenuItem key={genre.id} value={genre.name}>
                                                 <Checkbox checked={this.state.genres.indexOf(genre.name) > -1} />
@@ -141,7 +140,7 @@ class Home extends Component {
                                         value={this.state.artists}
                                         onChange={this.artistSelectHandler}>
 
-                                        <MenuItem value="0">None</MenuItem>
+                                        {/* <MenuItem value="0">None</MenuItem> */}
                                         {artists.map(artist => (
                                             <MenuItem key={artist.id} value={artist.first_name + " " + artist.last_name}>
                                                 <Checkbox checked={this.state.artists.indexOf(artist.first_name + " " + artist.last_name) > -1} />

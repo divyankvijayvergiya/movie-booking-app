@@ -10,6 +10,8 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import StarBorderIcon from "@material-ui/icons/StarBorder";
+import { Link } from 'react-router-dom';
+
 class Details extends Component {
     constructor() {
         super();
@@ -48,16 +50,17 @@ class Details extends Component {
     componentWillMount() {
         let currentState = this.state;
         currentState.movies = moviesData.filter((mov) => {
-            return mov.id === this.props.movieId;
+            return mov.id === this.props.match.params.id
         })[0];
 
         this.setState({ currentState })
         console.log(currentState);
     }
 
-    backToHomeHandler = () => {
-        ReactDOM.render(<Home />, document.getElementById("root"))
-    }
+    // backToHomeHandler = () => {
+    //     // ReactDOM.render(<Home />, document.getElementById("root"))
+    //     this.setState({ currentState });
+    // }
 
     artistClickHandler = (url) => {
         window.location = url;
@@ -90,10 +93,11 @@ class Details extends Component {
         }
         return (
             <div className="details">
-                <Header showBookShowButton = "true" />
+                <Header id={this.props.match.params.id} showBookShowButton="true" />
                 <div className="back">
-                    <Typography onClick={this.backToHomeHandler}>&#60; Back to Home</Typography>
-                </div>
+                    <Typography>
+                        <Link to="/">  &#60; Back to Home</Link>
+                    </Typography>                </div>
                 <div className="flex-containerDetails">
                     <div className="leftDetails">
                         <img src={movie.poster_url} alt={movie.title} />

@@ -4,10 +4,12 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Home from "./screens/home/Home";
 import 'typeface-roboto';
+import Controller from './screens/Controller';
+import './common/Common.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Home/>
+    <Controller/>
   </React.StrictMode>,
   document.getElementById('root')
 );
