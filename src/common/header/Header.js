@@ -103,6 +103,7 @@ class Header extends Component {
         let that = this;
         xhrLogin.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
+                console.log(this.responseText);
                 sessionStorage.setItem("uuid", JSON.parse(this.responseText).id);
                 sessionStorage.setItem("access-token", xhrLogin.getResponseHeader("access-token"));
 
@@ -136,7 +137,7 @@ class Header extends Component {
             "first_name": this.state.firstname,
             "last_name": this.state.lastname,
             "mobile_number": this.state.contact,
-            "password": this.state.password
+            "password": this.state.registerPassword
         })
 
         let xhrSignup = new XMLHttpRequest();
@@ -178,6 +179,14 @@ class Header extends Component {
         this.setState({ contact: e.target.value });
     }
 
+    logoutHandler = (e) => {
+        sessionStorage.removeItem("uuid");
+        sessionStorage.removeItem("access-token");
+
+        this.setState({
+            loggedIn: false
+        });
+    }
     // bookShowHandler = (e) => {
     //     ReactDOM.render(<BookShow/>, document.getElementById('root'));
     // }
@@ -187,9 +196,19 @@ class Header extends Component {
             <div>
                 <header className="app-header">
                     <img src={logo} className="app-logo" alt="logo" />
-                    <div className="login-button">
-                        <Button variant="contained" color="default" onClick={this.openModalHandler}>LOGIN</Button>
-                    </div>
+                    {!this.state.loggedIn ?
+                        <div className="login-button">
+                            <Button variant="contained" color="default" onClick={this.openModalHandler}>
+                                Login
+                            </Button>
+                        </div>
+                        :
+                        <div className="login-button">
+                            <Button variant="contained" color="default" onClick={this.logoutHandler}>
+                                Logout
+                            </Button>
+                        </div>
+                    }
 
                     {this.props.showBookShowButton === "true" ? <div className="bookshow-button">
                         <Link to={"/bookshow/" + this.props.id}>
