@@ -210,13 +210,25 @@ class Header extends Component {
                         </div>
                     }
 
-                    {this.props.showBookShowButton === "true" ? <div className="bookshow-button">
-                        <Link to={"/bookshow/" + this.props.id}>
-                            <Button variant="contained" color="primary">
+                    {this.props.showBookShowButton === "true" && !this.state.loggedIn
+                        ? <div className="bookshow-button">
+                            <Button variant="contained" color="primary" onClick={this.openModalHandler}>
                                 Book Show
+                            </Button>
+                        </div>
+                        : ""
+                    }
+
+                    {this.props.showBookShowButton === "true" && this.state.loggedIn
+                        ? <div className="bookshow-button">
+                            <Link to={"/bookshow/" + this.props.id}>
+                                <Button variant="contained" color="primary">
+                                    Book Show
                                 </Button>
-                        </Link>
-                    </div> : ""}
+                            </Link>
+                        </div>
+                        : ""
+                    }
 
                 </header>
                 <Modal ariaHideApp={false} isOpen={this.state.modalIsOpen} contentLabel="Login" onRequestClose={this.closeModalHandler} style={customStyles}>
@@ -296,7 +308,7 @@ class Header extends Component {
                                 this.state.registrationSuccess === true && <FormControl>
                                     <span className="successText">Registration Successful. Please Login!</span>
                                 </FormControl>
-                            }<br/>
+                            }<br />
 
                             <Button variant="contained" color="primary" onClick={this.registerClickHandler}>REGISTER</Button>
                         </TabContainer>
